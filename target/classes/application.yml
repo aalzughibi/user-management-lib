@@ -1,0 +1,57 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/userdb?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your-email@gmail.com
+    password: your-app-password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: 8091
+  servlet:
+    context-path: /api
+
+# JWT Configuration
+app:
+  jwt:
+    secret: ${JWT_SECRET:aTl3as732CharactersL0ngS3cretKeyF0rHS512S1gn1ngAlg0r1thmInPr0duct10n}
+    expirationMs: 86400000  # 24 hours
+    refreshExpirationMs: 604800000  # 7 days
+  cors:
+    allowed-origins: "http://localhost:3000"
+  email:
+    verification-expiration-minutes: 30
+    password-reset-expiration-minutes: 15
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.springframework.security: INFO
+    com.aiops.usermanagement: DEBUG 
